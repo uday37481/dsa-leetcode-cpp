@@ -1,24 +1,29 @@
+// Best Time to Buy and Sell Stock
+
+#include <vector>
+#include <algorithm>
+
 class Solution 
 {
 public:
-    int maxProfit(vector<int>& prices) 
+    int maxProfit(std::vector<int>& prices) 
     {
-        int buy_price = prices[0] ;
-        int profit = 0;
+        int minPrice = INT_MAX; 
+        int maxProfit = 0; 
 
-        for(int i=1 ; i< prices.size(); i++)
+        for (int price : prices) 
         {
-          if (prices[i] < buy_price)
-          {
-            buy_price = prices[i] ;
-          }
-          else
-          {
-            int current_profit = prices[i] - buy_price ;
-            profit = max(current_profit, profit) ;
-          }
+            // Update the minimum price if the current price is lower
+            minPrice = std::min(minPrice, price);
+
+            // Calculate the profit if selling at the current price
+            int profit = price - minPrice;
+            
+            // Update the maximum profit if the current profit is higher
+            maxProfit = std::max(maxProfit, profit);
         }
 
-        return profit;        
+        // Return the maximum profit found
+        return maxProfit;
     }
 };
